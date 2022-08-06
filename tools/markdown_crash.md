@@ -84,6 +84,7 @@ echo this is the string
 
 ### links to paragraphs
 **Here is links to all paragraphs:**
+
 [Headings](#heading-1)
 [Italic](#italic)
 [Bold](#bold)
