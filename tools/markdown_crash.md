@@ -98,7 +98,7 @@ echo this is the string
 [Bold-Italic](#bolditalic)  
 [Crosed text](#crosed-text)  
 [Horisontal line](#horisontal-line)  
-[Line breaks](#line-breaks)
+[Line breaks](#line-breaks)  
 [Blocks](#blocks)  
 [Links](#links)  
 [Unordered list](#unordered-list)  
