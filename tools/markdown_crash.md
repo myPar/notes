@@ -84,22 +84,21 @@ echo this is the string
 
 ### links to paragraphs
 **Here is links to all paragraphs:**
-
-[Headings](#heading-1)
-[Italic](#italic)
-[Bold](#bold)
-[Bold-Italic](#bolditalic)
-[Crosed text](#crosed-text)
-[Horisontal line](#horisontal-line)
-[Blocks](#blocks)
-[Links](#links)
-[Unordered list](#unordered-list)
-[Ordered list](#ordered-list)
-[Inline images](#inline-images)
-[Ordered list](#ordered-list)
-[Inline images](#inline-images)
-[Code blocks](#code-blocks)
-[Tables](#tables)
-[links to paragraphs](#links-to-paragraphs)
+[Headings](#heading-1)  
+[Italic](#italic)  
+[Bold](#bold)  
+[Bold-Italic](#bolditalic)  
+[Crosed text](#crosed-text)  
+[Horisontal line](#horisontal-line)  
+[Blocks](#blocks)  
+[Links](#links)  
+[Unordered list](#unordered-list)  
+[Ordered list](#ordered-list)  
+[Inline images](#inline-images)  
+[Ordered list](#ordered-list)  
+[Inline images](#inline-images)  
+[Code blocks](#code-blocks)  
+[Tables](#tables)  
+[links to paragraphs](#links-to-paragraphs)  
 
 __Note:__ just one **#** for all heading sizes, no space between **#** and link name, link tag names must be **lowercase**, and delimited by **dashes** if multi-word.
