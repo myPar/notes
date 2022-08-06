@@ -27,6 +27,14 @@ ___
 
 ---
 
+### Line breaks
+To create a line break or new line, end a line with two or more spaces, and then type return.  
+line1  
+line2  
+line3  
+line4  
+line5  
+
 ### Blocks
 >this
 >text
@@ -83,13 +91,14 @@ echo this is the string
 | Sergey | 321-122 | srgd@mail.ru |
 
 ### links to paragraphs
-**Here is links to all paragraphs:**
+**Here is links to all paragraphs:**  
 [Headings](#heading-1)  
 [Italic](#italic)  
 [Bold](#bold)  
 [Bold-Italic](#bolditalic)  
 [Crosed text](#crosed-text)  
 [Horisontal line](#horisontal-line)  
+[Line breaks](#line-breaks)
 [Blocks](#blocks)  
 [Links](#links)  
 [Unordered list](#unordered-list)  
