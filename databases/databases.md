@@ -119,7 +119,7 @@ __Модель Сущность-Связь (ER-model)__ - включает в с
 
 ### Структура СУБД
 
-![структура СУБД](https://i.ibb.co/vhdLPmt/DMSscema.jpg)
+<a href="https://ibb.co/nB1QcfW"><img src="https://i.ibb.co/vhdLPmt/DMSscema.jpg" alt="DMSscema" border="0"></a>
 
 ##### Компилятор запросов
 Трансляция запроса во внутреннее представлние - план запроса. Компоненты:
