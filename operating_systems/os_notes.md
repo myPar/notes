@@ -45,9 +45,10 @@ UNIX является первой действительно переносим
 
 <a href="https://ibb.co/HYw8n6T"><img src="https://i.ibb.co/FJZTg24/image.jpg" alt="image" border="0"></a>
 
+
 # POSIX THREAD LIBRARY
 
-#####Описание библиотечных функций для Solaris 10 и концепций POSIX THREAD LIBRARY
+##### Описание библиотечных функций для Solaris 10 и концепций POSIX THREAD LIBRARY
 
 __pthread_create__  - функция создания новой нити в текущем процессе. [Официальная документация.](https://docs.oracle.com/cd/E26505_01/html/816-5168/pthread-create-3c.html#scrolltoc)  
 
