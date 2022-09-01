@@ -43,7 +43,7 @@ UNIX является первой действительно переносим
 
 Процесс, в котором исполняется приложение, запрашивает услугу ядра посредством ___системного вызова___. Ядро выполняет данный запрос от имени процесса и возвращает ему необходимые данные.
 
-<a href="https://ibb.co/HYw8n6T"><img src="https://i.ibb.co/FJZTg24/image.jpg" alt="image" border="0"></a>
+<img src="https://i.ibb.co/FJZTg24/image.jpg" alt="image" border="0"></a>
 
 
 # POSIX THREAD LIBRARY
