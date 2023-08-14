@@ -253,4 +253,177 @@ public class ToyotaPassengerCar implements PassengerCar {
 }
 ```
 
+### Builder pattern
 
+Creational pattern. Produce different types/representations of the  object using the same step by step construction process.  
+
+Uses when object has huge number of fields. To avoid using a mostrous constructor each time we use this pattern.  
+
+__basic idiom__
+```java
+public class Client {
+    private int id;
+    private String name;
+    private String surname;
+    private String pathronimic;
+    private int age;
+    private String citizenship;
+    private String nationality;
+
+    // using of constructor should be incapsulated. 
+    // preferably, only available to Builder
+
+    Client(int id, String name, String surname, ...) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        ...
+    }
+}
+
+public class ClientBuilder {
+    private String name;        // same field as Client class has
+    private String surname;     //
+    private String pathronimic; //
+    private int age;            //
+    private String citizenship; //
+    private String nationality; //
+
+    public ClientBuilder() {}
+
+    public ClientBuilder id(int id) {
+        this.id = id;
+
+        return this;
+    }
+
+    public ClientBuilder name(String name) {
+        this.name = name;
+
+        return this;
+    }
+    ...
+    public Client build() {
+        return new Client(id, name, sruname, ...);
+    }
+}
+```
+
+sometimes we have the same __configuration__ of building products and we want to reuse it.
+
+__solution__: we create new class which uses our builder instance to create objects with specified configuration:
+
+```java
+public class SchemaClientCreator {
+    public void buildRussianClient(ClientBuilder builder) {
+        builder.citizenship("Russian").
+        nationality("Russian");
+    }
+    public void buildBrasilianClient(ClientBuiler builder) {
+        builder.citizenship("Brasilian").
+        nationality("Brasilian");
+    }
+}
+```
+
+### Prototype pattern
+
+Creational pattern. Delegating object cloning process to the object which will be actually cloned.  
+
+__basic idiom__:
+
+```java
+interface Prototype {
+    public Car clone();
+}
+
+public class Car implements Prototype {
+    private String brand;
+    private String model;
+    private int speed;
+
+    public Car() {}
+
+    public Car(Car car) {   // copy constructor
+        this.brand = car.brand;
+        this.speed = car.speed;
+        this.model = car.model;
+    }
+
+    @Override
+    public Car clone(Car car) {
+        return new Car(this);
+    }
+}
+```
+
+prototype pattern with hierachy:
+
+```java
+public abstract class Vehicle { // parent class with abstract clone() method
+    private String brand;
+    private String model;
+    private int speed;
+
+    protected Vehicle(Vehicle vehicle) {
+        this.speed = vehicle.speed;
+        this.model = vehicle.model;
+        this.brand = vehicle.brand;
+    }
+    public abstract Vehicle clone(Vehicle vehicle);
+
+    // we can copy child objects without knowing what class they 
+    // actually corresponded to
+    public List<Vehicle> clone(List<Vehicle> vehicleList) {
+        List<Vehicle> result = new ArrayList<>();
+
+        for (Vehicle vehicle: vehicleList) {
+            result.add(vehicle.clone());
+        }
+        return result;
+    }
+}
+
+public class Car extends Vehicle {
+    private int length;
+
+    public Car(){}
+    public Car(Car car) {
+        super(car);
+        this.length = car.length;
+    }
+    @Override
+    public Car clone() {
+        return new Car(this);
+    }
+}
+
+public class Bus extends Vehicle {
+    private int seatsCount;
+
+    public Bus(){}
+    public Bus(Bus bus) {
+        super(bus);
+        this.seatsCount = bus.seatsCount;
+    }
+    @Override
+    public Bus clone() {
+        return new Bus(this);
+    }
+}
+
+```
+sometimes it is needed to store the most used prototypes in cache:
+
+```java
+public class VehicleCache {
+    private Map<String, Vehicle> cache = new HashMap<>();
+
+    public VehicleCache(List<Vehicles> prototypes) {
+        ... // initial cache filling
+    }
+    public Vehicle getCopy(String key) {
+        return cach.get(key).clone();
+    }
+}
+```
