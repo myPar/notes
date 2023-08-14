@@ -427,3 +427,80 @@ public class VehicleCache {
     }
 }
 ```
+
+### Chain of responsibility pattern
+
+Behavioral pattern. Represents a chain of handlers which handle the request one by one in chain order. Each handler desides to pass request to the next handler or reject it.  
+
+```java
+interface URL {
+    String getDomainName();
+    String getProtocol();
+    String getSubdomain();
+    String getPath();
+}
+
+public abstract class Handler {
+    private Handler next;
+    
+    public Handler setNext(Handler nextHandler) {
+        this.next = nextHandler;
+
+        return nextHandler;
+    }
+    public Handler next() {
+        return next;
+    }
+    public abstract boolean handle(URL url);
+}
+
+public class ProtocolHandler {
+    private String requiredProtocol;
+
+    @Override
+    public boolean handle(URL url) {
+        return url.getProtocol().equals(requiredProtocol);
+    }
+}
+
+public class SubdomainHandler {
+    private static final String requiredDomain = "www";
+
+    @Override
+    public boolean handle(URL url) {
+        return requiredDomain.equals(url.getSubdomain());
+    }
+}
+
+public class PathHandler {
+    @Override
+    public boolean handle(URL url) {    // handle that path is not an empty string
+        return !url.equals(url.getPath())
+    }
+}
+
+public class DomainHandler {
+    public static final String requiredDomain = "com";
+
+    @Override
+    public boolean handle(URL url) {
+        return url.getDomainName().split(" ")[1] == requiredDomain;
+    }
+}
+
+// ---------------------------------------- //
+
+public class ValidateURLservice {
+    public boolean validate(URL url) {
+        Handler curHandler = new ProtocolHandler();
+        curHandler.setNext(new SubdomainHandler()).setNext(new DomainHandler()).setNext(new PathHandler());
+
+        while (curHandler != null) {
+            if(!curHandler.handle()) {return false;};
+            curHandler = curHandler.next();
+        }
+        return true;
+    }
+}
+```
+Use this pattern when you need to execute handlers in the particular order. Handler order can be changed dynamically.  
