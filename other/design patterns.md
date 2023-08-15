@@ -504,3 +504,105 @@ public class ValidateURLservice {
 }
 ```
 Use this pattern when you need to execute handlers in the particular order. Handler order can be changed dynamically.  
+
+### Command pattern
+
+Behavioral design pattern. Turns beahvior into a separate object, which incapsulates all necessary info about performing an action.  
+
+roles:
+* __Invoker__ - initialize the request for command execution.  
+* __Receiver__ - does actual work of commands execution.  
+* __Command__ - abstract command.  
+* __ConcreteCommand__ - concrete implementation of the command.  
+* __Client__ - configuring commands. passes all the request parameters (including a receiver instance) to the command constructor.
+
+```java
+public interface Command {      // -- abstract command -- //
+    void execute();
+}
+
+public class ArtilleryFireCommand implements Command {  // -- concrete command -- //
+    private List<ArtilleryBattery> batteries;
+
+    public ArtilleryFireCommand(List<ArtilleryBattery> batteries) {
+        this.batteries = batteries;
+    }
+
+    @Override
+    public void execute() {
+        for (ArtilleryBattery battery: batteries) {
+            battery.fire();
+        }
+    }
+}
+
+public class InfantryMarchCommand implements Command {  // -- concrete command -- //
+    private List<InfantryPlatoon> infantryPlatoons;
+
+    public InfantryMarchCommand(List<InfantryPlatoon> infantryPlatoons) {
+        this.infantryPlatoons = infantryPlatoons;
+    }
+
+    @Override
+    public void execute() {
+        for (InfantryPlatoon platoon: infantryPlattons) {
+            if (platoon.getMoral() > platoon.getMinMoral()) {
+                platoon.march();
+            }
+        }
+    }
+}
+
+public class Army {     // -- Invoker -- //
+    private List<ArtilleryBattery> batteries;
+    private List<InfantryPlatoon> infantryPlatoons;
+    private Command currentCommand; // we can also implement queue/list of commands 
+
+    public void setCurrentCommand(Command command) {
+        this.currentCommand = command;
+    }
+
+    public void executeCommand() {
+        currentCommand.execute();
+    }
+}
+
+public class ArmyCommander {        // -- client -- //
+    private Army army;
+
+    public void offensive() {
+        army.setCurrentCommand(new ArtilleryFireCommand(army.batteries()));
+        army.executeCommand();
+        army.setCurrentCommand(new InfantryMarchCommand(army.infantryPlatoons()));
+        army.executeCommand();
+    }
+
+    public void defense() {
+        army.setCurrentCommand(new ArtilleryFireCommand(army.batteries()));
+        army.executeCommand();  // double artilery fire
+        army.executeCommand();  //
+    }
+}
+
+public class ArtilleryBattery {     // -- receiver -- //
+    void fire() {
+        ... // some buisness logic
+    }
+}
+
+public class InfantryPlatoon {      // -- receiver -- //
+    private int moral;
+    private static final int MIN_MORAL = 10;
+    
+    public int getMoral() {return moral;}
+
+    public static int getMinMoral() {return MIN_MORAL;}
+    
+    void march() {
+        ... // some buisness logic
+    }
+}
+
+```
+
+Commands can be queued, serialized and passed through the network.
