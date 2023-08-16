@@ -678,9 +678,9 @@ Algorithm steps with similar implementation are moved into the superclass.
 Behavioral design pattern. Defines the object that encapsulates how other objects interact between each other. Reducing dependences between objects.  
 
 __roles__:
-* __Mediator interface__ - abstract mediator, need if we wand several implementations of it.  
-* __Abstract component__ - we can have several components classes and, so define abstract component class which will be used by mediator.  
-* __Concrete mediator__ - concrete implementation of mediator interface.  
+* __Mediator interface__ - abstract mediator, need if we want several implementations of it. Defines main method which component will use for communication.  
+* __Concrete mediator__ - concrete implementation of mediator interface. Implements components interraction.  
+* __Abstract component__ - we can have several components classes, so define abstract component class which will be used by a mediator.   
 * __Concrete component__ - concrete implementation of abstract component class.  
 
 ```java
