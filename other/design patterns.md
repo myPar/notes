@@ -606,3 +606,160 @@ public class InfantryPlatoon {      // -- receiver -- //
 ```
 
 Commands can be queued, serialized and passed through the network.
+
+### Template pattern
+
+Behavioral design pattern. Defines skeleton of an algorithm in a superclass. Lets subclasses override specific steps of the algorithm without changing the structure.  
+
+```java
+public abstract class Army {
+    public abstract void reconnaissance();
+    public abstract void preliminaryBombardment();
+    public abstract void droneSupport();
+    public abstract void storming();
+
+    public void attack() {  // template method
+        reconnaissance();
+        preliminaryBombardment();
+        droneSupport();
+        storming();
+    }
+}
+
+public class RussianArmy {
+    @Override
+    public void reconnaissance() {
+        // specific subclass implementation
+    }
+
+    @Override
+    public void preliminaryBombardment() {
+        // specific subclass implementation
+    }
+
+    @Override
+    public void droneSupport() {
+        // specific subclass implementation
+    }
+
+    @Override
+    public void storming() {
+        // specific subclass implementation
+    }
+}
+
+public class USArmy {
+    @Override
+    public void reconnaissance() {
+        // specific subclass implementation
+    }
+
+    @Override
+    public void preliminaryBombardment() {
+        // specific subclass implementation
+    }
+
+    @Override
+    public void droneSupport() {
+        // specific subclass implementation
+    }
+
+    @Override
+    public void storming() {
+        // specific subclass implementation
+    }
+}
+```
+
+Algorithm steps with similar implementation are moved into the superclass.  
+
+### Mediator pattern
+
+Behavioral design pattern. Defines the object that encapsulates how other objects interact between each other. Reducing dependences between objects.  
+
+__roles__:
+* __Mediator interface__ - abstract mediator, need if we wand several implementations of it.  
+* __Abstract component__ - we can have several components classes and, so define abstract component class which will be used by mediator.  
+* __Concrete mediator__ - concrete implementation of mediator interface.  
+* __Concrete component__ - concrete implementation of abstract component class.  
+
+```java
+public interface SupportMediator { // Mediators can be different
+    public void getSupport(Supporter asker);
+}
+
+public abstract class Supporter {   // abstract component class
+    private SupportMediator mediator;
+
+    public void askForSupport() {
+        mediator.getSupport(this);
+    }
+    public abstract boolean support();   // true if can support
+    public abstract boolean canSupport();
+    public abstract String getName();
+}
+
+public class ConcreateSupportMediator implements SupportMediator {  // concreate implementation of mediator
+    private List<Supporter> supporters;
+
+    @Override
+    public void getSupport(Supporter asker) {
+        for (Supporter supporter: supporters) {
+            if (supporter.canSupport() && !supporter.getName.equals(asker.getName())) {
+                supporter.support();
+            }
+        }
+    }
+}
+
+public class Artillery extends Supporter {  // concreate component class
+    private int ammunition;
+    private static final int MIN_AMMUNITON_SUPPORT_COUNT = 100;
+
+    private void shelling() {
+        ...// some implementation
+    }
+
+    @Override
+    public boolean support() {
+        shelling();
+    }
+    
+    @Override
+    public boolean canSuport() {
+        return ammunition >= MIN_AMMUNITON_SUPPORT_COUNT;
+    }
+    
+    @Override
+    public String getName() {
+        return "Artillery";
+    }
+}
+
+public class Infantry extends Supporter {   // concreate component class
+    private int moral;
+    private int curStamina;
+    
+    private static final int MIN_SUPPORT_MORAL;
+    private static final int MIN_SUPPORT_STAMINA;
+
+    private void positionsStorm() {
+        ...// some implementation
+    }
+
+    @Override
+    public boolean support() {
+        positionsStorm();
+    }
+    
+    @Override
+    public boolean canSuport() {
+        return moral >= MIN_SUPPORT_MORAL && curStamina >= MIN_SUPPORT_STAMINA;
+    }
+    
+    @Override
+    public String getName() {
+        return "Infantry";
+    }
+}
+```
