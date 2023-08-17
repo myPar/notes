@@ -763,3 +763,122 @@ public class Infantry extends Supporter {   // concreate component class
     }
 }
 ```
+
+### Decorator pattern
+
+Structural design pattern. Attach new responsibility dynamically (in runtime) to the object by placing it in a special wrapper, that contains these. Solution for subclass explosion problem.   
+
+__roles__:
+
+* __Component__ - abstract component which declares common behaviors for wrappers and wrapped object.  
+
+* __Concrete component__ - wrapped class. Defines basic behavior which can be altered by decorators.  
+
+* __Base decorator__ - references the wrapped object vie the abstract component.  
+
+* __Concrete decorator__ - override the methods of the base decorator but still use it. The execution of the base decorator methods is necessary.  
+
+* __Client__ - wraps components in layers of decorators. And works with it via the component interface.  
+
+```java
+// Component
+public interface Coffee {
+    public double getCost(); // Returns the cost of the coffee
+    public String getIngredients(); // Returns the ingredients of the coffee
+}
+
+// Concrete Component
+public class SimpleCoffee implements Coffee {
+    @Override
+    public double getCost() {
+        return 1;
+    }
+
+    @Override
+    public String getIngredients() {
+        return "Coffee";
+    }
+}
+
+// Base decorator
+public abstract class CoffeeDecorator implements Coffee {
+    private final Coffee decoratedCoffee;
+
+    public CoffeeDecorator(Coffee cofee) {
+        this.decoratedCoffee = c;
+    }
+
+    @Override
+    public double getCost() { // Implementing methods of the interface
+        return decoratedCoffee.getCost();
+    }
+
+    @Override
+    public String getIngredients() {
+        return decoratedCoffee.getIngredients();
+    }
+}
+
+// concrete decorator 1
+class WithMilk extends CoffeeDecorator {
+    public WithMilk(Coffee cofee) {
+        super(c);
+    }
+
+    @Override
+    public double getCost() { // Overriding methods defined in the abstract superclass
+        return super.getCost() + 0.5;
+    }
+
+    @Override
+    public String getIngredients() {
+        return super.getIngredients() + ", Milk";
+    }
+}
+
+// concrete decorator 2
+class WithSprinkles extends CoffeeDecorator {
+    public WithSprinkles(Coffee cofee) {
+        super(c);
+    }
+
+    @Override
+    public double getCost() {
+        return super.getCost() + 0.2;
+    }
+
+    @Override
+    public String getIngredients() {
+        return super.getIngredients() + ", Sprinkles";
+    }
+}
+// --------------------------------------- //
+
+// Client
+public class Main {
+    public static void printInfo(Coffee c) {
+        System.out.println("Cost: " + c.getCost() + "; Ingredients: " + c.getIngredients());
+    }
+
+    public static void main(String[] args) {
+        Coffee c = new SimpleCoffee();
+        printInfo(c);
+
+        c = new WithMilk(c);
+        printInfo(c);
+
+        c = new WithSprinkles(c);
+        printInfo(c);
+    }
+}
+```
+__output:__
+```
+Cost: 1.0; Ingredients: Coffee
+Cost: 1.5; Ingredients: Coffee, Milk
+Cost: 1.7; Ingredients: Coffee, Milk, Sprinkles
+```
+
+### Facade pattern
+
+
